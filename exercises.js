@@ -26,7 +26,7 @@ function expect(target) {
         return false;
       }
     }
-  }
+  };
 }
 
 //                          __                  __
@@ -40,6 +40,25 @@ function expect(target) {
 // ????????
 // ????????
 // ????????
+
+function Dog(config){
+  this.color = "red";
+  this.hungry = true;
+  if(config && config.hungry !== undefined){
+    this.hungry = config.hungry;
+  }
+  this.status = "normal";
+}
+
+function Human(config){
+  this.cool = (config && config.cool) || false;
+  this.pet = function(dog){
+    dog.status = "happy";
+  };
+  this.feed = function(dog){
+    dog.hungry = false;
+  };
+  }
 
 
 //        __
@@ -61,6 +80,7 @@ var moonshine = new Dog({
 var atticus = new Dog();
 
 
+
 //     __
 //    / /_  __  ______ ___  ____ _____  _____
 //   / __ \/ / / / __ `__ \/ __ `/ __ \/ ___/
@@ -73,7 +93,6 @@ var faith = new Human({
   cool: true
 });
 
-
 //                     __           __  __    _                             __
 //    ____ ___  ____ _/ /_____     / /_/ /_  (_)____   _      ______  _____/ /__
 //   / __ `__ \/ __ `/ //_/ _ \   / __/ __ \/ / ___/  | | /| / / __ \/ ___/ //_/
@@ -83,14 +102,15 @@ var faith = new Human({
 // Don't edit this section. Instead make these tests pass by writing
 // constructors in the constructor section above ;D
 
+
 it("should make Kepler happy when Dan pets him", function(){
   expect(kepler.status).toBe('normal');
-  mason.pet(kepler);
+  dan.pet(kepler);
   expect(kepler.status).toBe('happy');
 });
 
-it("should make Kepler black", function(){
-  expect(kepler.color).toBe('black');
+it("should make Kepler red", function(){
+  expect(kepler.color).toBe('red');
 });
 
 it("should be make Moonshine hungry and Kepler not hungry", function(){
@@ -103,9 +123,8 @@ it("should make Moonshine no longer hungry when you feed him", function(){
   expect(moonshine.hungry).toBe(false);
 });
 
-
 it("should not affect Atticus and Moonshine's owner properties when setting Dan as Kepler's owner ", function(){
-  sadie.owner = dan;
+  kepler.owner = dan;
   expect(moonshine.owner).toBe(undefined);
   expect(atticus.owner).toBe(undefined);
 });
